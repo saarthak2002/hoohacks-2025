@@ -9,16 +9,6 @@ import { Button } from "@/components/ui/button";
 import { newMessage } from "@/app/lib/chat_actions";
 
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -26,14 +16,12 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-  DialogClose,
 } from "@/components/ui/dialog";
 import { ChatMessageList } from "@/components/ui/chat/chat-message-list";
 import { ChatBubble } from "@/components/ui/chat/chat-bubble";
 import { ChatBubbleAvatar } from "@/components/ui/chat/chat-bubble";
 import { ChatBubbleMessage } from "@/components/ui/chat/chat-bubble";
 import { ChatInput } from "@/components/ui/chat/chat-input";
-import { getCollections, addTitleToCollection } from "@/app/lib/collection_actions";
 
 interface ImageCardProps {
   imageUrl: string
@@ -43,7 +31,7 @@ interface ImageCardProps {
   alt: string
 }
 
-export default function ImageCard({
+export default function ImageCardView({
   imageUrl = "/placeholder.svg?height=400&width=600",
   title = "Card Title",
   subtitle = "Card subtitle with additional information",
@@ -51,16 +39,6 @@ export default function ImageCard({
   alt = "Card image",
 }: ImageCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
-  const [userCollections, setUserCollections] = useState<{ id: any; title: any; count: any; }[] | undefined>([]);
-
-  const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
-
-  async function handleSaveModalOpen() {
-    const collections = await getCollections();
-    console.log(collections);
-    setUserCollections(collections);
-  }
 
   const [messages, setMessages] = useState([
     {
@@ -114,22 +92,6 @@ export default function ImageCard({
 
     console.log(message);
     console.log(title);
-  }
-
-  async function handleSaveToCollection() {
-    if (!selectedCollectionId) return;
-  
-    setIsSaving(true);
-  
-    try {
-      // API
-      console.log(`Saving "${title}" to collection ${selectedCollectionId}`);
-      await addTitleToCollection(selectedCollectionId, title)
-    } catch (error) {
-      console.error("Error saving to collection:", error);
-    } finally {
-      setIsSaving(false);
-    }
   }
 
   return (
@@ -233,40 +195,6 @@ export default function ImageCard({
                           </Button>
                         </div>
                       </form>
-                    </DialogContent>
-                  </Dialog>
-                  
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors" onClick={handleSaveModalOpen}>Save</Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                        <DialogTitle>Save to collection</DialogTitle>
-                        <DialogDescription>
-                          Choose a collection below. Click save when you're done.
-                        </DialogDescription>
-                      </DialogHeader>
-                        <Select onValueChange={(value) => setSelectedCollectionId(value)}>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a collection" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectLabel>Collections</SelectLabel>
-                              {
-                                userCollections?.map((collection) => {
-                                  return (<SelectItem key={collection.id} value={collection.id}>{collection.title}</SelectItem>)
-                                })
-                              }
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      <DialogFooter>
-                        <DialogClose asChild>
-                          <Button type="submit" disabled={!selectedCollectionId || isSaving} onClick={handleSaveToCollection}>{isSaving ? 'Saving...' : 'Save'}</Button>
-                        </DialogClose>
-                      </DialogFooter>
                     </DialogContent>
                   </Dialog>
                 </div>

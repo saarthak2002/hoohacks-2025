@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default async function Page() {
     const session = await auth();
-    const id = session?.user?.id;
-    const name = session?.user?.name;
-    const email = session?.user?.email;
+    // const id = session?.user?.id;
+    // const name = session?.user?.name;
+    // const email = session?.user?.email;
 
     return (
       <div className="p-6 space-y-6">

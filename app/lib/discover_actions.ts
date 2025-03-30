@@ -22,7 +22,7 @@ function getPageInfoPromise(pageTitle: string) {
     return responsePromise;
 }
 
-async function fetchCardsData(pageTitleList: string[]) {
+export async function fetchCardsData(pageTitleList: string[]) {
     try {
         const pageInfoPromises = pageTitleList.map(title => getPageInfoPromise(title));
         const pageInfoResults = await Promise.all(pageInfoPromises);

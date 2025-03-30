@@ -26,7 +26,7 @@ export default function SignupForm() {
                   <div className="flex flex-col items-center text-center">
                     <h1 className="text-2xl font-bold">Hello Explorer</h1>
                     <p className="text-balance text-muted-foreground">
-                      Create your App account
+                      Create your DoomLearning account
                     </p>
                   </div>
                   <div className="grid gap-2">
@@ -79,13 +79,17 @@ export default function SignupForm() {
                   alt="Image"
                   className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                 />
+                <div className="absolute bottom-0 left-0 p-4 w-full">
+                  <h2 className="text-lg md:text-xl text-white mb-1 font-medium">Did you know?</h2>
+                  <p className="text-white font-extralight">There are more than 390,000 unique species of plants on earth that have been discovered.</p>
+                </div>
               </div>
             </CardContent>
           </Card>
-          <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
+          {/* <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
             By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
             and <a href="#">Privacy Policy</a>.
-          </div>
+          </div> */}
         </div>
       )
 }
